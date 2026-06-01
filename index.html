@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}Inferno Pizza — Fire-Baked Perfection{% endblock %}
+
+{% block extra_styles %}
+<style>
+    /* HERO */
+    .hero {
+        min-height: 88vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 4rem 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        width: 600px; height: 600px;
+        background: radial-gradient(circle, rgba(255,69,0,0.15) 0%, transparent 70%);
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+        50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+    .hero-badge {
+        display: inline-block;
+        background: rgba(255,215,0,0.1);
+        border: 1px solid rgba(255,215,0,0.3);
+        color: var(--gold);
+        padding: 0.4rem 1.2rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(3.5rem, 8vw, 7rem);
+        font-weight: 900;
+        line-height: 1.0;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, var(--cream) 30%, var(--ember) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero h1 em {
+        font-style: italic;
+        background: linear-gradient(135deg, var(--fire), var(--gold));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        color: rgba(255,248,238,0.6);
+        max-width: 500px;
+        margin: 0 auto 3rem;
+        line-height: 1.7;
+        font-weight: 300;
+    }
+
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .flame-divider {
+        text-align: center;
+        font-size: 2rem;
+        margin: 1rem 0 4rem;
+        opacity: 0.5;
+    }
+
+    /* FEATURED SECTION */
+    .section { padding: 6rem 4rem; }
+    .section-label {
+        display: block;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--fire);
+        margin-bottom: 0.8rem;
+    }
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        max-width: 400px;
+        line-height: 1.15;
+    }
+
+    .pizza-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .pizza-card {
+        background: var(--ash);
+        border: 1px solid rgba(255,140,0,0.1);
+        border-radius: 20px;
+        padding: 2rem;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pizza-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255,69,0,0.05), transparent);
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+
+    .pizza-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(255,140,0,0.3);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .pizza-card:hover::after { opacity: 1; }
+
+    .pizza-emoji { font-size: 3.5rem; margin-bottom: 1.2rem; display: block; }
+    .pizza-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    .pizza-desc {
+        font-size: 0.88rem;
+        color: rgba(255,248,238,0.5);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    .pizza-price {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--gold);
+    }
+    .pizza-price span { font-size: 0.8rem; color: rgba(255,248,238,0.4); font-weight: 400; }
+
+    /* FEATURES */
+    .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        padding: 4rem;
+        background: var(--ash);
+        margin: 0;
+    }
+
+    .feature { text-align: center; padding: 2rem; }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .feature h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    .feature p { font-size: 0.88rem; color: rgba(255,248,238,0.5); line-height: 1.6; }
+
+    @media (max-width: 768px) {
+        nav { padding: 1rem 1.5rem; }
+        .section { padding: 4rem 1.5rem; }
+        .features { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-badge">🔥 Wood-Fired Since 2005</span>
+        <h1>Pizza Born<br>in <em>Flames</em></h1>
+        <p>Authentic Neapolitan-style pizzas cooked at 900°F in our wood-fired ovens. Every slice, a masterpiece.</p>
+        <div class="hero-cta">
+            <a href="/order" class="btn btn-fire">Order Now →</a>
+            <a href="/menu" class="btn btn-outline">Explore Menu</a>
+        </div>
+    </div>
+</section>
+
+<div class="flame-divider">— 🔥 —</div>
+
+<section class="section">
+    <span class="section-label">Our Classics</span>
+    <h2 class="section-title">Signature Pies</h2>
+    <div class="pizza-grid">
+        {% for pizza in pizzas %}
+        <div class="pizza-card">
+            <span class="pizza-emoji">{{ pizza.emoji }}</span>
+            <div class="pizza-name">{{ pizza.name }}</div>
+            <div class="pizza-desc">{{ pizza.description }}</div>
+            <div class="pizza-price">${{ "%.2f"|format(pizza.price) }} <span>/ medium</span></div>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="text-align:center; margin-top: 3rem;">
+        <a href="/order" class="btn btn-fire">Build Your Pizza →</a>
+    </div>
+</section>
+
+<div class="features">
+    <div class="feature">
+        <span class="feature-icon">🪵</span>
+        <h3>Wood-Fired Ovens</h3>
+        <p>Cooked at 900°F for that perfect char and smokiness only fire can give.</p>
+    </div>
+    <div class="feature">
+        <span class="feature-icon">🌿</span>
+        <h3>Fresh Ingredients</h3>
+        <p>Locally sourced produce and imported Italian cheeses — no shortcuts.</p>
+    </div>
+    <div class="feature">
+        <span class="feature-icon">⚡</span>
+        <h3>30-Min Delivery</h3>
+        <p>Hot from the oven to your door. Guaranteed in 30 minutes or it's free.</p>
+    </div>
+</div>
+{% endblock %}
