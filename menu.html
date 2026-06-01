@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Menu — Inferno Pizza{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .page-header {
+        padding: 5rem 4rem 3rem;
+        text-align: center;
+    }
+    .page-header .label {
+        display: block;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--fire);
+        margin-bottom: 1rem;
+    }
+    .page-header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        font-weight: 900;
+    }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 2rem 4rem 6rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .menu-card {
+        background: var(--ash);
+        border: 1px solid rgba(255,140,0,0.12);
+        border-radius: 24px;
+        overflow: hidden;
+        transition: all 0.4s;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        border-color: rgba(255,69,0,0.3);
+    }
+
+    .card-top {
+        background: linear-gradient(135deg, var(--smoke), rgba(255,69,0,0.1));
+        padding: 3rem 2rem;
+        text-align: center;
+        font-size: 5rem;
+    }
+
+    .card-body { padding: 1.8rem; }
+
+    .card-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+        font-size: 0.88rem;
+        color: rgba(255,248,238,0.5);
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .card-price {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--gold);
+    }
+
+    .order-btn {
+        background: linear-gradient(135deg, var(--fire), var(--ember));
+        color: white;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .order-btn:hover {
+        box-shadow: 0 6px 20px rgba(255,69,0,0.5);
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <span class="label">What We Offer</span>
+    <h1>Our <span style="color:var(--fire)">Fiery</span> Menu</h1>
+</div>
+
+<div class="menu-grid">
+    {% for pizza in pizzas %}
+    <div class="menu-card">
+        <div class="card-top">{{ pizza.emoji }}</div>
+        <div class="card-body">
+            <div class="card-name">{{ pizza.name }}</div>
+            <div class="card-desc">{{ pizza.description }}</div>
+            <div class="card-footer">
+                <div class="card-price">${{ "%.2f"|format(pizza.price) }}</div>
+                <a href="/order" class="order-btn">Order Now →</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
